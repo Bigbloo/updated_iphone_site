@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Finaliser votre achat – iPhone 17</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://checkout.airwallex.com/assets/elements.bundle.min.js"></script>
+</head>
+<body>
+  <nav>
+    <div class="logo">iPhone 17</div>
+    <ul>
+      <li><a href="index.html">Accueil</a></li>
+    </ul>
+  </nav>
+  <div class="checkout-container">
+    <h1>Finaliser votre achat</h1>
+    <p>Vous êtes sur le point d’acheter un iPhone 17 pour <strong>899 €</strong>. Veuillez renseigner vos informations de paiement ci‑dessous.</p>
+    <!-- Conteneur pour le bouton Apple Pay -->
+    <div id="applePayButton" class="apple-pay-button"></div>
+    <!-- Conteneur pour l’élément DropIn (cartes et autres méthodes) -->
+    <div id="payment-element"></div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', async function () {
+      try {
+        // Créez un intent de paiement côté serveur
+        const response = await fetch('/create-payment-intent', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ amount: 89900 })
+        });
+        const result = await response.json();
+        if (!result.id || !result.client_secret) {
+          alert('Erreur lors de la création de l’intention de paiement.');
+          return;
+        }
+        // Chargez les éléments Airwallex
+        await window.Airwallex.loadElements({ env: 'prod' });
+        // Créez le bouton Apple Pay. Le paiement Apple Pay nécessite
+        // l’ID de l’intent et le secret client retournés par le serveur.
+        try {
+          const applePayElement = window.Airwallex.createElement('applePayButton', {
+            intent_id: result.id,
+            client_secret: result.client_secret,
+            amount: {
+              value: 89900,
+              currency: 'EUR'
+            },
+            countryCode: 'FR',
+            // Indiquez les champs de contact requis pour la facturation et l’expédition.
+            requiredBillingContactFields: ['postalAddress', 'email', 'name', 'phone'],
+            requiredShippingContactFields: ['name', 'email'],
+            totalPriceLabel: 'iPhone 17',
+            buttonType: 'buy',
+            buttonColor: 'black',
+            // Fonction exécutée lorsque le paiement Apple Pay est validé
+            onSuccess: function () {
+              window.location.href = 'success.html';
+            },
+            // Fonction exécutée en cas d’erreur avec Apple Pay
+            onError: function (error) {
+              console.error(error);
+              alert(error.message || 'Une erreur est survenue avec Apple Pay.');
+            }
+          });
+          applePayElement.mount('#applePayButton');
+        } catch (e) {
+          // Si Apple Pay n’est pas disponible (par exemple sur un navigateur non compatible),
+          // l’erreur est capturée et ignorée afin de laisser le DropIn se charger normalement.
+          console.warn('Apple Pay n’est pas disponible sur ce navigateur.', e);
+        }
+
+        // Créez l’élément dropIn pour les autres méthodes de paiement (cartes, etc.)
+        const element = window.Airwallex.createElement('dropIn', {
+          intent_id: result.id,
+          client_secret: result.client_secret,
+          currency: 'EUR',
+          amount: 89900,
+          onSuccess: function () {
+            window.location.href = 'success.html';
+          },
+          onError: function (error) {
+            console.error(error);
+            alert(error.message || 'Une erreur s’est produite lors du paiement.');
+          }
+        });
+        element.mount('#payment-element');
+      } catch (error) {
+        console.error(error);
+        alert('Une erreur est survenue lors du chargement du module de paiement.');
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,259 @@
+/* Basic reset and typography */
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #333;
+  background-color: #fff;
+}
+
+/* Navigation bar */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+nav .logo {
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: #0071e3;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+nav a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+nav a:hover {
+  color: #0071e3;
+}
+
+/* Hero section */
+.hero {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(135deg, #a8c0ff 0%, #f1f1f1 100%);
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  margin: 0 0 1rem;
+  line-height: 1.2;
+}
+
+.hero p {
+  font-size: 1.1rem;
+  margin: 0 0 2rem;
+  max-width: 450px;
+}
+
+.hero .btn {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  background-color: #0071e3;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+
+.hero .btn:hover {
+  background-color: #005bb5;
+}
+
+.hero-image-container {
+  max-width: 400px;
+  margin-bottom: 2rem;
+}
+
+.hero-image {
+  width: 100%;
+  transform: perspective(1000px) rotateY(-15deg);
+  transition: transform 0.5s ease;
+}
+
+.hero-image:hover {
+  transform: perspective(1000px) rotateY(0deg);
+}
+
+@media (min-width: 768px) {
+  .hero {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 6rem 4rem;
+  }
+  .hero .hero-text {
+    max-width: 50%;
+  }
+  .hero-image-container {
+    max-width: 45%;
+    margin-bottom: 0;
+  }
+}
+
+/* Features section */
+.features {
+  padding: 4rem 2rem;
+  background-color: #ffffff;
+  text-align: center;
+}
+
+.features h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.feature-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.feature-card {
+  background: #f9f9f9;
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+.feature-card i {
+  font-size: 2rem;
+  color: #0071e3;
+  margin-bottom: 1rem;
+}
+
+.feature-card h3 {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  color: #222;
+}
+
+.feature-card p {
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: #555;
+}
+
+/* Colors section */
+.colors-section {
+  padding: 4rem 2rem;
+  background: #fafafa;
+  text-align: center;
+}
+
+.colors-section h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.color-swatches {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+.color-swatch {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid #ddd;
+}
+
+/* Price section */
+.price-section {
+  padding: 4rem 2rem;
+  background-color: #ffffff;
+  text-align: center;
+}
+
+.price-section h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.price {
+  font-size: 2.5rem;
+  color: #0071e3;
+  margin-bottom: 1rem;
+}
+
+.price-section .btn {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  background-color: #0071e3;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+
+.price-section .btn:hover {
+  background-color: #005bb5;
+}
+
+/* Checkout styles */
+.checkout-container {
+  padding: 4rem 2rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.checkout-container h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* Success page */
+.success {
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.success h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.success p {
+  font-size: 1rem;
+  margin-bottom: 2rem;
+}
+
+.success .btn {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  background-color: #0071e3;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+
+.success .btn:hover {
+  background-color: #005bb5;
+}
